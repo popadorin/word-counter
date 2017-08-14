@@ -18,6 +18,7 @@ public class WordParser implements IWordCounting {
 	@Override
 	public ArrayList<Word> getWords(String text) {
 		String[] tokens = text.split("\\s+"); // \\s+ is regex for at least one space or more
+		int nrOfTokens = tokens.length;
 		
 		HashMap<String, Integer> dict = new HashMap<>(); // dict with word name key and frequency value
 		for (String token : tokens) {
@@ -28,13 +29,12 @@ public class WordParser implements IWordCounting {
 			}
 		}
 		
-		int nrOfWords = dict.size();
 		Set<String> keys = dict.keySet();
 		ArrayList<Word> words = new ArrayList<>();
 		
 		for (String key : keys) {
 			int value = dict.get(key);
-			double rate = new Double(value) / nrOfWords * 100;
+			double rate = new Double(value) / nrOfTokens * 100;
 			rate = Math.round(rate * 100) / 100.0;
 			
 			words.add(new Word(key, value, rate));

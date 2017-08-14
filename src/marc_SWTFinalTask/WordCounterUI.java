@@ -83,8 +83,6 @@ public class WordCounterUI {
 		btnNewButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				
-				// there will be a method that has input the text and output an word[] array
 				WordParser wp = WordParser.getInstance();
 				ArrayList<Word> words = wp.getWords(text.getText());
 				Collections.sort(words, (w1, w2) -> w2.getFrequency() - w1.getFrequency());
