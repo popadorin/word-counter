@@ -1,24 +1,27 @@
 package marc_SWTFinalTask;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.layout.FormAttachment;
+import org.eclipse.swt.layout.FormData;
+import org.eclipse.swt.layout.FormLayout;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
 import models.Word;
 import models.WordParser;
-
-import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.layout.FormLayout;
-import org.eclipse.swt.layout.FormData;
-import org.eclipse.swt.layout.FormAttachment;
-import org.eclipse.swt.layout.FillLayout;
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.graphics.Point;
 
 public class WordCounterUI {
 
@@ -59,7 +62,8 @@ public class WordCounterUI {
 	 */
 	protected void createContents() {
 		shell = new Shell();
-		shell.setSize(790,581);
+		shell.setMinimumSize(new Point(750, 280));
+		shell.setSize(778,417);
 		shell.setText("SWT Application");
 		shell.setLayout(new FillLayout(SWT.HORIZONTAL));
 		
@@ -82,16 +86,8 @@ public class WordCounterUI {
 				
 				// there will be a method that has input the text and output an word[] array
 				WordParser wp = WordParser.getInstance();
-//				Word[] words = wp.getWords(text.getText());
-				
-				// some values for testing
-				Word word1 = new Word("Jora", 5, 21.5);
-				Word word2 = new Word("Fedea", 3, 24.6);
-				Word word3 = new Word("grisha", 5, 21.5);
-				Word word4 = new Word("aleosha", 9, 9.8);
-				
-				Word[] words = {word1, word2, word3, word4};
-				
+				ArrayList<Word> words = wp.getWords(text.getText());
+				Collections.sort(words, (w1, w2) -> w2.getFrequency() - w1.getFrequency());
 				
 				for (Word word : words) {
 					Label l1 = new Label(compositeResultTable, SWT.NONE);
@@ -117,12 +113,13 @@ public class WordCounterUI {
 		
 		compositeResultTable = new Composite(composite_1, SWT.BORDER);
 		FormData fd_compositeResultTable = new FormData();
-		fd_compositeResultTable.bottom = new FormAttachment(100, -48);
-		fd_compositeResultTable.left = new FormAttachment(0, 36);
-		fd_compositeResultTable.top = new FormAttachment(0, 59);
-		fd_compositeResultTable.right = new FormAttachment(0, 322);
+		fd_compositeResultTable.bottom = new FormAttachment(100, -10);
+		fd_compositeResultTable.left = new FormAttachment(0, 10);
+		fd_compositeResultTable.top = new FormAttachment(0, 10);
+		fd_compositeResultTable.right = new FormAttachment(0, 371);
 		compositeResultTable.setLayoutData(fd_compositeResultTable);
-		compositeResultTable.setLayout(new GridLayout(3, false));
+		GridLayout gl_compositeResultTable = new GridLayout(3, false);
+		compositeResultTable.setLayout(gl_compositeResultTable);
 		
 		Label lblWord = new Label(compositeResultTable, SWT.NONE);
 		GridData gd_lblWord = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);

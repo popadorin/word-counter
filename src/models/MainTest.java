@@ -1,16 +1,19 @@
 package models;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 public class MainTest {
 	public static void main(String[] args) {
-		Word word1 = new Word("Jora", 5, 21.5);
-		Word word2 = new Word("Fedea", 3, 24.6);
-		Word word3 = new Word("grisha", 5, 21.5);
-		Word word4 = new Word("aleosha", 9, 9.8);
+		WordParser wp = WordParser.getInstance();
 		
-		Word[] words = {word1, word2, word3, word4};
+		String text = "I love meat and meat loves me";
 		
-		for (Word word : words) {
-			System.out.println(word.getName());
-		}
+		ArrayList<Word> words = wp.getWords(text);
+		
+		System.out.println("....................................");
+		Collections.sort(words, (w1, w2) -> w2.getFrequency() - w1.getFrequency());
+		
+		words.forEach(System.out::println);
 	}
 }

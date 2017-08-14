@@ -35,5 +35,9 @@ public class Word {
 		this.rate = rate;
 	}
 	
-	
+	@Override
+	public String toString() {
+		return getClass().getSimpleName() +
+				" [name: " + name + ", frequency: " + frequency + ", rate: " + rate + "]";
+	}
 }

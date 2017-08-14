@@ -1,7 +1,9 @@
 package interfaces;
 
+import java.util.ArrayList;
+
 import models.Word;
 
 public interface IWordCounting {
-	public Word[] getWords(String text);
+	public ArrayList<Word> getWords(String text);
 }
